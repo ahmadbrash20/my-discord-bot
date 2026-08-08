@@ -1,4 +1,5 @@
 const { Client, GatewayIntentBits } = require("discord.js");
+const http = require("http");
 
 const client = new Client({
   intents: [
@@ -6,6 +7,16 @@ const client = new Client({
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.MessageContent
   ]
+});
+
+// Port for Render
+const PORT = process.env.PORT || 3000;
+
+http.createServer((req, res) => {
+  res.writeHead(200);
+  res.end("Discord bot is running!");
+}).listen(PORT, () => {
+  console.log(`Web server running on port ${PORT}`);
 });
 
 client.once("ready", () => {
@@ -24,6 +35,7 @@ client.on("messageCreate", async (message) => {
       message.guild.roles.everyone,
       { SendMessages: false }
     );
+
     message.reply("🔒 تم قفل الشات.");
   }
 
@@ -32,6 +44,7 @@ client.on("messageCreate", async (message) => {
       message.guild.roles.everyone,
       { SendMessages: true }
     );
+
     message.reply("🔓 تم فتح الشات.");
   }
 });
