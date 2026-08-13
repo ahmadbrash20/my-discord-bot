@@ -1,1 +1,6 @@
 git clone https://github.com/discord/discord-example-app.git
+# navigate to directory
+cd discord-example-app
+
+# install dependencies
+npm install
